@@ -4,10 +4,10 @@
             <h2>Cześć</h2>
             <b-form >
                 <b-form-input class="my-3" v-model="login" placeholder="Podaj login"/>
-                <b-form-input v-model="password" type="password" placeholder="Podaj hasło"/>
+                <b-form-input v-model="password" @keyup.enter="check" type="password" placeholder="Podaj hasło" />
                 <b-alert class="mt-3" variant="danger" >Błędny login lub hasło.</b-alert>
                 <div>
-                    <b-button class="mb-2 mt-3 logBtn" @click="check">Zaloguj się </b-button> 
+                    <b-button class="mb-2 mt-3 logBtn" @click="check" >Zaloguj się </b-button> 
                 </div>
                 
             </b-form>
@@ -17,11 +17,13 @@
 </template>
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
-import HomeView            from '../views/HomeView.vue'
+import Home                from './Panel.vue'
+
 
 export default defineComponent({
     name: "Login",
     data(){
+        daneTestowe:[]
         return{
             login: '',
             password: '',
@@ -29,9 +31,10 @@ export default defineComponent({
         }
     },
     components:{
-        HomeView,
+        Home,
     },
     methods: {
+      
        check(){
            if(this.login == 'admin' && this.password == 'admin'){
                console.log("brawo debilu");

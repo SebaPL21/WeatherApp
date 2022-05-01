@@ -1,0 +1,72 @@
+[
+    {
+        "id": 759734,
+        "name": "Rzeszów",
+        "state": "",
+        "country": "PL",
+        "coord": {
+            "lon": 21.99901,
+            "lat": 50.041321
+        }
+    },
+    {
+        "id": 6695624,
+        "name": "Warszawa",
+        "state": "",
+        "country": "PL",
+        "coord": {
+            "lon": 21.04191,
+            "lat": 52.23547
+        }
+    },
+     {
+        "id": 3094802,
+        "name": "Kraków",
+        "state": "",
+        "country": "PL",
+        "coord": {
+            "lon": 19.91667,
+            "lat": 50.083328
+        }
+    },
+     {
+        "id": 2643743,
+        "name": "London",
+        "state": "",
+        "country": "GB",
+        "coord": {
+            "lon": -0.12574,
+            "lat": 51.50853
+        }
+    },
+    {
+        "id": 2634715,
+        "name": "Washington",
+        "state": "",
+        "country": "GB",
+        "coord": {
+            "lon": -1.51667,
+            "lat": 54.900002
+        }
+    },
+     {
+        "id": 2950159,
+        "name": "Berlin",
+        "state": "",
+        "country": "DE",
+        "coord": {
+            "lon": 13.41053,
+            "lat": 52.524368
+        }
+    },
+    {
+        "id": 775866,
+        "name": "Błażowa",
+        "state": "",
+        "country": "PL",
+        "coord": {
+            "lon": 22.10037,
+            "lat": 49.885208
+        }
+    }
+]

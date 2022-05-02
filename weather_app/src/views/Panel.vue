@@ -4,11 +4,29 @@
     <b-col cols="8">
       <h1>Miasta</h1>
       <h4 >Sprawdź pogodę dla twojego miasta</h4>
-      <button @click="getTemp"></button>
-      {{result}} 
-      {{result2}} 
+      <!-- <button @click="getTemp"></button>  -->
+      <!-- przycisk tymczasowy do sprawdzamnia api -->     
+     <ul>
+      <li>
+      <div>
+        <b-card 
+          img-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM01Ky5GTzZhKDxvSVaLC65MmTaYbvV2jk5oqliLSTjhk1XMRc5iLan5n7z3Cp2U5ST5I&usqp=CAU"
+          img-alt="Image"
+          style="max-width: 10rem;" >
+         Błażowa
+        </b-card>
+     </div> 
+     </li>
+     </ul>
+     <!-- <div>
+      <b-table striped hover :items="items"></b-table>
+     </div> -->
     </b-col>
-    <b-col cols="4" class="user"><h2>Użytkownika</h2> </b-col>
+    <b-col cols="4" class="user">
+      <div>
+          <weather-info/> 
+      </div>
+    </b-col>
   </b-row>
 </b-container>
  
@@ -16,45 +34,60 @@
 </template>
 
 <script lang="ts">
-import Vue, { onMounted, ref }                    from "vue";
-import { defineComponent }                        from 'vue'
-import VueAxios                                   from 'vue-axios'
-import axios                                      from 'axios'
+import { Options, Vue }                           from "vue-class-component";
+import VueAxios                                   from 'vue-axios';
+import axios                                      from 'axios';
+import WeatherInfo                                from '@/components/WeatherInfo.vue';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap/dist/css/bootstrap.css';
+  @Options({
+    components:{WeatherInfo}
+  })
+export default class Panel extends Vue {
+  
 
-export default defineComponent({
-    data() {
+
+  // public getHours(startDate: Date, index: number): number[] {
+  //   let hours = [];
+  //   let currDay = new Date();
+  //   currDay.setTime(currDay.getTime()+index *60 *60 *1000);
+  //   let currHour = currDay.getHours();
+  //   hours.push(currHour);
+  //   return hours;
+  // }
+
+}
+// export default defineComponent({
+//     data() {
      
-      return{
-        testingdata: undefined,
-        result: '',
-        result2: '',
-      }
-    },
-   setup() {
+//       return{
+//         testingdata: undefined,
+//         result: {},
+//         result2: '',
+//         items: [
+//           { Day: 'sat', clouds: 'Dickerson', temp: 23 },
+               
+//         ]
+//       }
+//     },
+//    setup() {
       
-    // onMounted(async () => {
-    //   await axios.get('https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=d5f968fb949c510e71da65a7e6878221')
-    //  .then((res)=> {
-    //    this.result = res.data.main;
-    //    console.log(res.data);
-    //   })
-    // })
-    // return {result}
-  },
-  methods: {
-    async getTemp(){
-      try{
-        const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?lat=49.885208&lon=22.10037&appid=d5f968fb949c510e71da65a7e6878221');
-        this.result = response.data.name;
-        this.result2 = response.data.main;
-      }
-      catch (error){
-        console.log(error);
-      }
-    },
-  },        
-})
-</script>
+//   },
+//   methods: {
+//     async getTemp(){
+//       try{
+//         const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?lat=49.885208&lon=22.10037&appid=d5f968fb949c510e71da65a7e6878221&units=metric&lang=pl');
+//         this.result = response.data;
+//         this.result2 = response.data.main;
+        
+//       }
+//       catch (error){
+//         console.log(error);
+//       }
+//     },
+//   },        
+// })
+// </script>
 
 <style scoped>
 
@@ -64,7 +97,10 @@ export default defineComponent({
   background-color: rgba(255, 255, 255, 0.664);
 }
 .user{
-  background-color: rgb(236, 110, 148);
+  background-color: rgba(238, 79, 127, 0.568);
   border-radius: 30px;
+}
+li{
+  list-style: none;
 }
 </style>

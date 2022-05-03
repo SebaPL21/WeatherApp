@@ -17,8 +17,16 @@
       <p> wiatr</p>
     </div>
 </template>
+<!-- <script setup() lang="ts">
+import {defineProps}    from 'vue-class-component';
+
+defineProps<{
+  activeCity: City;
+}>();
+</script> -->
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import {City}           from '@/moels/city';
 
 export default class WeatherInfo extends Vue { }
 </script>

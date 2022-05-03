@@ -2,10 +2,13 @@
 <b-container>
  <b-row class="panel">
     <b-col cols="8">
+      
       <h1>Miasta</h1>
+   
       <h4 >Sprawdź pogodę dla twojego miasta</h4>
       <!-- <button @click="getTemp"></button>  -->
-      <!-- przycisk tymczasowy do sprawdzamnia api -->     
+      <!-- przycisk tymczasowy do sprawdzamnia api -->   
+      <find-fav-city/>  
      <ul>
       <li>
       <div>
@@ -24,7 +27,7 @@
     </b-col>
     <b-col cols="4" class="user">
       <div>
-          <weather-info/> 
+        <weather-info /> 
       </div>
     </b-col>
   </b-row>
@@ -34,18 +37,38 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue }                           from "vue-class-component";
-import VueAxios                                   from 'vue-axios';
-import axios                                      from 'axios';
-import WeatherInfo                                from '@/components/WeatherInfo.vue';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
-import 'bootstrap/dist/css/bootstrap.css';
+import { Options, Vue,setup }    from "vue-class-component";
+import VueAxios                  from 'vue-axios';
+import axios                     from 'axios';
+import cities                    from '@/assets/data/city.list.json';
+import {City}                    from "@/moels/city";
+import WeatherInfo               from '@/components/WeatherInfo.vue';
+import FindFavCity               from '@/components/FindFavCity.vue';
+import {Weather}                 from '@/moels/wather';
+import {WeatherMock}             from '@/mock/WeatherMock'
+
+
+
   @Options({
-    components:{WeatherInfo}
+    components:{WeatherInfo,FindFavCity}
   })
 export default class Panel extends Vue {
+  // private weather: Weather = WeatherMock; 
   
-
+  // public async data(): Promise<void> {
+  //   await this.loadData();
+  // }
+ //Api
+ //await axios.get('https://api.openweathermap.org/data/2.5/weather?lat=49.885208&lon=22.10037&appid=d5f968fb949c510e71da65a7e6878221&units=metric&lang=pl');
+  //  async getWeather(city:City):Promise<Weather>{
+  //       return(
+  //         await this.axios.get<Weather>(
+  //           process.env.API_WEATHER +
+  //           `weather?lat=${city.cord.lat}&lon=${city.cord.lon}&appid=`+
+  //           process.env.API_KEY
+  //         ).data;
+  //       ) 
+    }
 
   // public getHours(startDate: Date, index: number): number[] {
   //   let hours = [];
@@ -56,7 +79,6 @@ export default class Panel extends Vue {
   //   return hours;
   // }
 
-}
 // export default defineComponent({
 //     data() {
      
@@ -87,7 +109,7 @@ export default class Panel extends Vue {
 //     },
 //   },        
 // })
-// </script>
+</script>
 
 <style scoped>
 

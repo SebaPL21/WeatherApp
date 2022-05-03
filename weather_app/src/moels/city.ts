@@ -6,5 +6,5 @@ export interface City{
     cord: {
         lon: number,
         lat: number,
-    }
+    };
 }

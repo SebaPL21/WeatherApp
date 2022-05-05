@@ -37,7 +37,6 @@ export default defineComponent({
       
        check(){
            if(this.login == 'admin' && this.password == 'admin'){
-               console.log("brawo debilu");
                this.$router.replace({path: '/home'})  
            }
            else{

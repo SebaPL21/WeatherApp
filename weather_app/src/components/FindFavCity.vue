@@ -1,66 +1,65 @@
 <template>
     <div class="cityFinderInput">
-        <!-- <imput type="text" id="findCity" placeholder="Znajdź miasto" v-model="context.serchingCity"/> -->
-        <h1>Szukajka</h1>
-        <!-- <input v-model="context.serchingCity" placeholder="Znajdź miasto"> -->
    <input
+        class="inputCity"
         type="text"
         id="search"
-        placeholder="Find location"
-        v-model="context.searchTerm"
+        placeholder="Znajdź swoje miasto"
+        v-model="context.searchForCity"
       />
        <ul v-if="context.searchCities.length" class="search-hints">
-      <li
-        v-for="city in context.searchCities"
-        :key="city.name"
-        @click="context.selectCity(city)"
-      >
-        {{ city.name }}, {{ city.country }}
-      </li>
+        <li
+          v-for="city in context.searchCities"
+          :key="city.name"
+          @click="context.selected(city)"
+        >
+          {{ city.name }}, {{ city.country }}
+        </li>
     </ul>
 
     </div>
 </template>
+<style scoped>
+ul{
+  list-style:none;
+}
+li{
+  text-align:start;
+  font-size: 18px;
+}
+.inputCity{
+  border-radius:30px;
+  height: 40px;
+  width:300px;
+  font-size: 20px;
+  text-align: center;
+  border:none;
+}
+.cityFinderInput{
+  text-align: start;
+  margin: 30px 
+}
+</style>
 <script lang="ts">
-import {Options, Vue, setup}                     from "vue-class-component";
-import cities                                    from '@/assets/data/city.list.json';
-import {ref, computed, watch, reactive }         from 'vue';
-import { useStore }                              from 'vuex';
-import {City}                                    from "@/moels/city"
-
-
+import {Options, Vue, setup}                                                   from "vue-class-component";
+import cities                                                                  from '@/assets/data/city.test.list.json';
+import {ref, computed, watch, reactive }                                       from 'vue';
+import {City}                                                                  from "@/moels/city"
+import {MutationsType, useStore}                                               from '@/store/index'
 
 export default class FindFavCity extends Vue {
-  // store = useStore()
-
-    
-    // context=setup(()=>{
-    //     let serchingCity = ref("");
-    //     const serch = computed(() =>{
-    //         if(serchingCity.value === ""){
-    //             return [];
-    //         }
-    //         let mathingCity = 0;
-            
-    //         return cities.filter((city:City) =>{
-    //             if( city.name.toLowerCase().includes(serchingCity.value.toLowerCase()) && mathingCity <5 ){
-    //                 mathingCity ++;
-    //                 return city;
-    //             }
-    //         });
-    //     });
-    // }
-    // );
+ 
+  store= useStore();
   context = setup(() => {
-    let searchTerm = ref("");
+    let searchForCity = ref("");
     const searchCities = computed(() => {
-      if (searchTerm.value === "") {
+      if (searchForCity.value === "") {
         return [];
       }
       let matches = 0;
-      return cities.filter((city: City) => {
+      return cities.filter((city:City) => {
         if (
-          city.name.toLowerCase().includes(searchTerm.value.toLowerCase()) &&
+          city.name.toLowerCase().includes(searchForCity.value.toLowerCase()) &&
           matches < 5
         ) {
           matches++;
@@ -68,10 +67,16 @@ export default class FindFavCity extends Vue {
         }
       });
     });
-    let selectedCity = ref("");
+    const selected = (city:City) =>{
+     console.log(city);
+     this.store.commit(MutationsType.ADD_FAVORITE, city);
+     console.log(this.store.getters.getFavCity);
+    }
+    
     return {
       cities,
-      searchTerm,
+      selected,
+      searchForCity,
       searchCities,
     };
   });

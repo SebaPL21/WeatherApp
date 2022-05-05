@@ -41,4 +41,3 @@ export interface Weather{
     name: string,
     cod: number
 }
-}

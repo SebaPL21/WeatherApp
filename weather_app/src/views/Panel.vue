@@ -2,58 +2,54 @@
 <b-container>
  <b-row class="panel">
     <b-col cols="8">
-      
-      <h1>Miasta</h1>
-   
-      <h4 >Sprawdź pogodę dla twojego miasta</h4>
-      <!-- <button @click="getTemp"></button>  -->
-      <!-- przycisk tymczasowy do sprawdzamnia api -->   
-      <find-fav-city/>  
-     <ul>
-      <li>
-      <div>
-        <b-card 
-          img-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM01Ky5GTzZhKDxvSVaLC65MmTaYbvV2jk5oqliLSTjhk1XMRc5iLan5n7z3Cp2U5ST5I&usqp=CAU"
-          img-alt="Image"
-          style="max-width: 10rem;" >
-         Błażowa
-        </b-card>
-     </div> 
-     </li>
-     </ul>
+    <div class="searchCities">
+      <find-fav-city/> 
+    </div>    
+      <h4 >Sprawdź prognozę dla twoich miast</h4>
+      <city-card />
      <!-- <div>
       <b-table striped hover :items="items"></b-table>
      </div> -->
     </b-col>
     <b-col cols="4" class="user">
       <div>
-        <weather-info /> 
+        <weather-info 
+        v-if="this.store.favorite.length > 0"
+        :name="weather.name"
+        :temp="weather.temp"
+        :desc="weather.weather[0]"/> 
       </div>
     </b-col>
   </b-row>
 </b-container>
- 
-
 </template>
 
+<style scoped>
+.searchCities{
+  width: 100%;
+  float:left;
+  
+}
+</style>
+
 <script lang="ts">
-import { Options, Vue,setup }    from "vue-class-component";
-import VueAxios                  from 'vue-axios';
-import axios                     from 'axios';
-import cities                    from '@/assets/data/city.list.json';
-import {City}                    from "@/moels/city";
-import WeatherInfo               from '@/components/WeatherInfo.vue';
-import FindFavCity               from '@/components/FindFavCity.vue';
-import {Weather}                 from '@/moels/wather';
-import {WeatherMock}             from '@/mock/WeatherMock'
+import { Options, Vue,setup }               from "vue-class-component";
+import cities                               from '@/assets/data/city.list.json';
+import {City}                               from "@/moels/city";
+import WeatherInfo                          from '@/components/WeatherInfo.vue';
+import FindFavCity                          from '@/components/FindFavCity.vue';
+import {Weather}                            from '@/moels/weather';
+import {WeatherMock}                        from '@/mock/WeatherMock'
+import CityCard                             from '@/components/CityCard.vue'
+import {useStore}                           from '@/store'
 
-
-
-  @Options({
+@Options({
     components:{WeatherInfo,FindFavCity}
   })
-export default class Panel extends Vue {
-  // private weather: Weather = WeatherMock; 
+export default class Panel extends Vue { 
+  store = useStore();
+  
+   private weather: Weather = WeatherMock; 
   
   // public async data(): Promise<void> {
   //   await this.loadData();

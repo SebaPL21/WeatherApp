@@ -24,9 +24,24 @@ defineProps<{
   activeCity: City;
 }>();
 </script> -->
+<script setup lang="ts">
+ interface Props{
+   name: string,
+   desc: string,
+   temp: number
+ }
+ const props = withDefaults(defineProps<Props>(),{
+   name:"Nazwa miasta",
+   desc: "Opis pogody",
+   temp: 0
+ })
+ 
+
+</script>
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import {City}           from '@/moels/city';
+
 
 export default class WeatherInfo extends Vue { }
 </script>

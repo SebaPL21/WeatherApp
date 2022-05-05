@@ -1,4 +1,4 @@
-import { Weather } from "@/moels/wather";
+import { Weather } from "@/moels/weather";
 export const WeatherMock: Weather = {
     coord: {
       lon: 0,

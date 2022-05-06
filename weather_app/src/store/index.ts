@@ -17,31 +17,37 @@ export type State = {
 };
 const state :State = {
   favorite: [],
-   activCity: {} as City 
+  activCity: {} as City 
   };
 //mutations
 export enum MutationsType {
   ADD_FAVORITE = "ADD_FAVORITE",
   DELETE_FAVORITE = "DELETE_FAVORITE",
+  SET_ACTIVE = "SET_ACTIVE",
 }
 //mutations type 
 export type Mutations<S=State>={
   [MutationsType.ADD_FAVORITE](state: S, payload:City):void;
   [MutationsType.DELETE_FAVORITE](state: S, payload:City):void;
+  [MutationsType.SET_ACTIVE](state: S, payload:City):void;
 
 }
 export const mutations: MutationTree<State> & Mutations ={
-  [MutationsType.ADD_FAVORITE](state, items){  
-    state.favorite.push(items);
+  [MutationsType.ADD_FAVORITE](state, item:City){  
+    state.favorite.push(item);
   },
-  [MutationsType.DELETE_FAVORITE](state,item){
+  [MutationsType.DELETE_FAVORITE](state,item:City){
     state.favorite.splice(state.favorite.indexOf(item),1)
+  },
+  [MutationsType.SET_ACTIVE](state, item:City){
+    state.activCity = item;
   }
 };
-//actions https://www.youtube.com/watch?v=EeaYWLNXAwQ
+//actions https://www.youtube.com/watch?v=EeaYWLNXAwQ  tutorial
 export enum ActionType{
   ADD_FAVORITE = "ADD_FAV",
   DELETE_FAVORITE = "DELETE_FAV",
+  SET_ACTIVE = "SET_ACTIVE",
 }
 
 type ActionArguments = Omit<ActionContext<State,State>,'commit'> &{
@@ -54,6 +60,7 @@ type ActionArguments = Omit<ActionContext<State,State>,'commit'> &{
 export type Actions = {
   [ActionType.ADD_FAVORITE](context: ActionArguments, payload:City):void;
   [ActionType.DELETE_FAVORITE](context: ActionArguments, payload:City):void;
+  [ActionType.SET_ACTIVE](context: ActionArguments, payload:City):void;
 }
 export const actions: ActionTree<State, State> & Actions = {
   async [ActionType.ADD_FAVORITE]({commit}, payload:City){  
@@ -61,6 +68,9 @@ export const actions: ActionTree<State, State> & Actions = {
   },
   async [ActionType.DELETE_FAVORITE]({commit}, payload:City){
     commit(MutationsType.DELETE_FAVORITE, payload);
+  },
+  async [ActionType.SET_ACTIVE]({commit}, payload:City){
+    commit(MutationsType.SET_ACTIVE, payload);
   }
 };
 //geters

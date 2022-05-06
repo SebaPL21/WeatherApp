@@ -1,47 +1,31 @@
 <template>
-    <div>
-     <div class="date-hours"> 12,sep 
-        <h3>12:23</h3> 
-     </div>
-    </div>
-
-      <h3>nazwa miejscowości</h3>
-
-    <div class="act_temp">temperatuta aktualna
-      <div class="fell_temp">temperatuta odczuwalna </div> 
-    </div>
-
-    <div class="desc">
-      <p> ćiśnienie</p>   
-      <p> wilgotność</p>   
-      <p> wiatr</p>
+    <h3>{{name}}</h3>
+      <div class="desc">
+      <p> {{temp}} temp</p>   
+      <p> {{desc}} </p>  
     </div>
 </template>
-<!-- <script setup() lang="ts">
-import {defineProps}    from 'vue-class-component';
 
-defineProps<{
-  activeCity: City;
-}>();
-</script> -->
 <script setup lang="ts">
- interface Props{
-   name: string,
-   desc: string,
-   temp: number
- }
- const props = withDefaults(defineProps<Props>(),{
-   name:"Nazwa miasta",
-   desc: "Opis pogody",
-   temp: 0
- })
- 
-
+  interface Props {
+  name: string;
+  desc: string;
+  temp: number;
+}
+const props = withDefaults(defineProps<Props>(), {
+  name: "Name",
+  desc: "Desc",
+  temp: 0,
+  
+});
 </script>
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import {City}           from '@/moels/city';
-
-
-export default class WeatherInfo extends Vue { }
+import { Options, Vue }                     from 'vue-class-component';
+import {City}                               from '@/moels/city';
+import {useStore}                           from '@/store'
+import {Weather}                            from '@/moels/weather';
+export default class WeatherInfo extends Vue {
+  //store = useStore();
+  
+ }
 </script>

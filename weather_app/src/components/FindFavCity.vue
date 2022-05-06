@@ -13,7 +13,7 @@
           :key="city.name"
           @click="context.selected(city)"
         >
-          {{ city.name }}, {{ city.country }}
+          {{ city.name }}
         </li>
     </ul>
 
@@ -21,11 +21,19 @@
 </template>
 <style scoped>
 ul{
+  margin-top: 20px;
   list-style:none;
+  background-color: rgba(255, 255, 255, 0.719);
+  border-radius: 30px;
+  width: 300px;
 }
 li{
-  text-align:start;
+  text-align:center;
   font-size: 18px;
+}
+li:hover{
+  font-size: 20px;
+  cursor: pointer;
 }
 .inputCity{
   border-radius:30px;
@@ -57,7 +65,7 @@ export default class FindFavCity extends Vue {
         return [];
       }
       let matches = 0;
-      return cities.filter((city:City) => {
+      return cities.filter((city: City) => {
         if (
           city.name.toLowerCase().includes(searchForCity.value.toLowerCase()) &&
           matches < 5
@@ -68,9 +76,14 @@ export default class FindFavCity extends Vue {
       });
     });
     const selected = (city:City) =>{
-     console.log(city);
-     this.store.commit(MutationsType.ADD_FAVORITE, city);
-     console.log(this.store.getters.getFavCity);
+     //console.log(city);
+     if(this.store.state.favorite.length < 5){
+      this.store.commit(MutationsType.ADD_FAVORITE, city);
+     }
+     else{
+       alert("Mozna mieć tylko 5 miast na lisście");
+     }
+    console.log(this.store.getters.getFavCity);
     }
     
     return {

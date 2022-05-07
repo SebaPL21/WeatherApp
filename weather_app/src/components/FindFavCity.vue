@@ -11,8 +11,7 @@
         <li
           v-for="city in context.searchCities"
           :key="city.name"
-          @click="context.selected(city)"
-        >
+          @click="context.selected(city);">
           {{ city.name }}
         </li>
     </ul>
@@ -38,7 +37,7 @@ li:hover{
 .inputCity{
   border-radius:30px;
   height: 40px;
-  width:300px;
+  width:100%;
   font-size: 20px;
   text-align: center;
   border:none;
@@ -54,6 +53,8 @@ import cities                                                                  f
 import {ref, computed, watch, reactive }                                       from 'vue';
 import {City}                                                                  from "@/moels/city"
 import {MutationsType, useStore}                                               from '@/store/index'
+import Panel                                                                   from '@/views/Panel.vue'
+
 
 export default class FindFavCity extends Vue {
  
@@ -83,9 +84,10 @@ export default class FindFavCity extends Vue {
      else{
        alert("Mozna mieć tylko 5 miast na lisście");
      }
-    console.log(this.store.getters.getFavCity);
+     searchForCity.value = "";
+     
+   // console.log(this.store.getters.getFavCity);
     }
-    
     return {
       cities,
       selected,

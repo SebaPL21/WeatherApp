@@ -7,11 +7,12 @@
 </template>
 
 <script setup lang="ts">
-  interface Props {
+import {defineProps, withDefaults}          from 'vue'
+interface Props {
   name: string;
   desc: string;
   temp: number;
-}
+  }
 const props = withDefaults(defineProps<Props>(), {
   name: "Name",
   desc: "Desc",

@@ -4,9 +4,11 @@
     <ul>
         <li v-for="city in cities"
             :key="city.name"
-            @click="setActive(city)">
+            @click="setActive(city);
+            $parent.changeCityContent(city);
+            ">
             {{city.name}}
-             
+            x
         </li>
     </ul>
     </div>
@@ -20,11 +22,11 @@ import {City}                               from "@/moels/city";
 
 export default class CityCard extends Vue {
     store = useStore();
-    cities = this.store.state.favorite; 
-    setActive(city){
-      console.log(city);
-        this.store.commit(MutationsType.SET_ACTIVE, city);
-      console.log("active"+this.store.state.activCity.name );
+    cities = this.store.getters.getFavCity; 
+    setActive(city:City){
+      //console.log(city);
+        this.store.commit(MutationsType.SET_ACTIVE, city); 
+      //console.log("active "+this.store.state.activCity.name );
     }
 }
 </script>

@@ -1,29 +1,31 @@
 <template>
-<b-container>
- <b-row class="panel">
-    <b-col cols="8">
+    
+<div class="container">
+ <div class="row panel">
+    <div class="col-8">
       <div class="empty"
         v-if="this.store.state.favorite.length == 0">
        <h1>Doadaj swoje miasta do listy</h1>
       </div>
       <div class="ntEmpty" v-if="this.store.state.favorite.length > 0">
-        <h1 >Sprawdź prognozę dla twoich miast</h1>
-      <city-card/>
-       <weather-info 
-        :name="sus"
-        :temp="3"
+        <h1>Sprawdź prognozę dla twoich miast</h1>
+    <CityCard/>
+       <WeatherInfo 
+        :name="weather.name"
+        :temp="weather.main.temp"
         :desc="weather.weather[0].description"/>
          <!-- <weather-info /> -->
       </div>
-    </b-col>
-    <b-col cols="4" class="user">
+    </div>
+    <div  class="col-4 user">
       <div class="searchCities">
+
         <find-fav-city/> 
-        <side-panel :activeCity="this.store.state.activCity"/>
+        <side-panel />
       </div>  
-    </b-col>
-  </b-row>
-</b-container>
+    </div>
+  </div>
+</div>
 </template>
 
 <style scoped>
@@ -42,13 +44,13 @@
   float:left;
 }
 h4{
-  marign-bottom: 30px;
+  margin: 30px;
 }
 </style>
 
 <script lang="ts">
 import { Options, Vue,setup }                             from "vue-class-component";
-import cities                                             from '@/assets/data/city.list.json';
+import cities                                             from '@/assets/data/city.test.list.json';
 import WeatherInfo                                        from '@/components/WeatherInfo.vue';
 import {City}                                             from "@/moels/city";
 import FindFavCity                                        from '@/components/FindFavCity.vue';
@@ -69,23 +71,22 @@ export default class Panel extends Vue {
   }
   private favs : City[] = [];
   private weather: Weather = WeatherMock; 
-
-
-
   public async getWeather(city: City): Promise<Weather> {
     return (
-        await this.axios.get<Weather>(
-        process.env.API_WEATHER +
-        `/weather?lat=${city.coord.lat}&lon=${city.coord.lon}&appid=` +
-        process.env.API_KEY
-      )
+        await this.axios.get<Weather>( //"https://api.openweathermap.org/data/2.5/weather?lat=49.885208&lon=22.10037&appid=d5f968fb949c510e71da65a7e6878221&units=metric"
+          process.env.VUE_APP_API_WEATHER+
+          `/weather?lat=${city.coord.lat}&lon=${city.coord.lon}&appid=`+
+          process.env.VUE_APP_API_KEY 
+       )
     ).data;
   }
-  public async changeContent(city: City) {
-    try {
-      this.store.commit(MutationsType.SET_ACTIVE, city);
+  public async changeCityContent(city: City){
+    console.log(city);
+    try { 
       this.weather = await this.getWeather(this.store.state.activCity);
-      //this.forecast = await this.getForecast(this.store.state.activeCity);
+      console.log(this.weather);
+
+      console.log("doszło");
     } catch {
       console.log("Error");
     }
@@ -93,7 +94,7 @@ export default class Panel extends Vue {
     public async allData(): Promise<void> {
     try{
       if(this.store.state.favorite.length == 0 ){
-        this.store.getters.getCity;
+        this.store.getters.getFavCity;
         this.favs = await this.store.state.favorite;
       }
       else {
@@ -102,11 +103,11 @@ export default class Panel extends Vue {
       //this.store.commit(MutationsType.SET_ACTIVE, this.favs[0]);
       this.weather = await this.getWeather(this.store.state.activCity);
       
-      console.log("miesto "+this.store.state.activCity);
+      console.log(this.store.state.activCity);
       console.log(this.weather);
 
     } catch(e){
-      console.log("Error" + e);
+      console.log(e);
     }
   }
 }
@@ -120,7 +121,7 @@ export default class Panel extends Vue {
   background-color: rgba(255, 255, 255, 0.664);
 }
 .user{
-  background-color: rgba(238, 79, 127, 0.568);
+  background-color: rgba(97, 222, 253, 0.548);
   border-radius: 30px;
 }
 li{

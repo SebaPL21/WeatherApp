@@ -8,17 +8,19 @@ import {
   MutationTree,
   Store as VuexStore,
 } from "vuex";
-import { City }    from '@/moels/city';
-import { Options } from "vue-class-component";
+import { City }             from '@/moels/city';
+
+import createPersistedState from "vuex-persistedstate";
+
 
 export type State = {
   favorite: Array<City>; 
   activCity: City
-};
+}
 const state :State = {
   favorite: [],
   activCity: {} as City 
-  };
+  }
 //mutations
 export enum MutationsType {
   ADD_FAVORITE = "ADD_FAVORITE",
@@ -33,16 +35,16 @@ export type Mutations<S=State>={
 
 }
 export const mutations: MutationTree<State> & Mutations ={
-  [MutationsType.ADD_FAVORITE](state, item:City){  
-    state.favorite.push(item);
+  [MutationsType.ADD_FAVORITE](state, payload:City){  
+    state.favorite.push(payload);
   },
-  [MutationsType.DELETE_FAVORITE](state,item:City){
-    state.favorite.splice(state.favorite.indexOf(item),1)
+  [MutationsType.DELETE_FAVORITE](state,payload:City){
+    state.favorite.splice(state.favorite.indexOf(payload),1)
   },
-  [MutationsType.SET_ACTIVE](state, item:City){
-    state.activCity = item;
+  [MutationsType.SET_ACTIVE](state, payload:City){
+    state.activCity = payload
   }
-};
+}
 //actions https://www.youtube.com/watch?v=EeaYWLNXAwQ  tutorial
 export enum ActionType{
   ADD_FAVORITE = "ADD_FAV",
@@ -72,7 +74,7 @@ export const actions: ActionTree<State, State> & Actions = {
   async [ActionType.SET_ACTIVE]({commit}, payload:City){
     commit(MutationsType.SET_ACTIVE, payload);
   }
-};
+}
 //geters
 export type Getters = {
   getCity(state:State):City;
@@ -89,27 +91,28 @@ export type Getters = {
 export type Store = Omit<
   VuexStore<State>, 
   'getters'|'commit'|'dispatch'> & {
-     commit<K extends keyof Mutations, P extends keyof Parameters<Mutations[K]>[1]>(
+     commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(
        key:K,
        peyload: P,
        options?: CommitOptions
-     ):ReturnType<Mutations[K]>;
+     ):ReturnType<Mutations[K]>
     } & {
       dispatch<K extends keyof Actions>(
         key:K,
         peyload: Parameters<Actions[K]>[1],
         options?: DispatchOptions
-      ):ReturnType<Actions[K]>;
+      ):ReturnType<Actions[K]>
     } & {
       getters:{
         [K in keyof Getters]:ReturnType<Getters[K]>
-      };
+      }
     }
     export const store = createStore<State>({
       state,
       mutations,
       actions,
       getters,
+      plugins:[createPersistedState()]
     })
 export function useStore(){
   return store as Store;

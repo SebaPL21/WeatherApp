@@ -49,6 +49,7 @@ li:hover{
 </style>
 <script lang="ts">
 import {Options, Vue, setup}                                                   from "vue-class-component";
+//import cities                                                                  from '@/assets/data/city.list.json';
 import cities                                                                  from '@/assets/data/city.test.list.json';
 import {ref, computed, watch, reactive }                                       from 'vue';
 import {City}                                                                  from "@/moels/city"

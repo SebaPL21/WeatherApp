@@ -7,8 +7,7 @@
             @click="setActive(city);
             $parent.changeCityContent(city);
             ">
-            {{city.name}}
-            x
+            {{city.name}}       
         </li>
     </ul>
     </div>
@@ -24,9 +23,7 @@ export default class CityCard extends Vue {
     store = useStore();
     cities = this.store.getters.getFavCity; 
     setActive(city:City){
-      //console.log(city);
         this.store.commit(MutationsType.SET_ACTIVE, city); 
-      //console.log("active "+this.store.state.activCity.name );
     }
 }
 </script>

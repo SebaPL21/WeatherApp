@@ -1,58 +1,46 @@
 <template>
 <div > 
-  
-  <div class="clock">{{ dateTime.hours }}:{{ dateTime.minutes }}</div>
-  <div class="clock">{{ dateTime.day }}.{{ dateTime.month }}.{{dateTime.year}} </div>
+  <p> {{TodayDate}}</p>
 </div>
 
 </template>
 <style scoped>
-
 .clock{
     font-size: 40px;
-    font: bold;
-    
-}
+    font: bold;   
+  }
+p{
+  font-size: 30px;
+  font-weight: bold;
+} 
 </style>
-
 <script lang="ts">
-
+import { Options, Vue,setup }                             from "vue-class-component";
 const date = new Date();
-export default {
-  data() {
-    return {
-      dateTime: {
-        hours: date.getHours(),
-        minutes: date.getMinutes(),
-        day: date.getDay(),
-        month: date.getMonth(),
-        year: date.getFullYear(),
-        ///sec: date.getSeconds(),
-      },
-      timer: undefined,
-    };
-  },
-  methods: {
-    setDateTime() {
-      const date = new Date();
-      this.dateTime = {
-        hours: date.getHours(),
-        minutes: date.getMinutes(),// połącz w jedną zmienną i wyświetl
-        //sec: date.getSeconds(),
-        day: date.getDay(),                                         // dopisz if'a z sprawdzaniem czy wartości mniejsze od 0
-        month: date.getMonth(),
-        year: date.getFullYear(),// połącz w jedną zmienną i wyświetl
-        
-      };
-    },
-  },
-  beforeMount() {
-    this.timer = setInterval(this.setDateTime, 1000);
-  },
-  beforeUnmount() {
-    clearInterval(this.timer);
-  },
 
- 
+export default class Panel extends Vue { 
+  public TodayDate = this.setDate();
+  setDate() {
+    console.log(date.getMonth())
+      let days;
+      if (date.getDate() < 10 )
+      {
+        days = "0"+date.getDate() +"."+ date.getMonth() +"."+date.getFullYear();
+        console.log(days);
+      }
+      else if(date.getMonth() < 10){
+        days = date.getDate() +".0"+ date.getMonth()+"."+date.getFullYear();
+         console.log(days);
+      }
+      if(date.getDate() < 10 && date.getMonth()<10 ){
+        days = "0"+date.getDate() + ".0" + date.getMonth()+"."+date.getFullYear();
+         console.log(days)
+      }
+      else{
+         days = date.getDate() +"."+ date.getMonth()+"."+date.getFullYear();
+          console.log(days)
+      }
+      return days;
+    }
 };
 </script>

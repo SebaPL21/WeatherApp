@@ -1,10 +1,11 @@
 <template>
-<h2>Prognoza tygoniowa</h2>
-<div v-for="(item, index) in forecast.daily.slice(0, 6)"
+<h2>Prognoza godzinowa</h2>
+<div v-for="(item, index) in forecast.hourly.slice(0, 6)"
     :class="{ active: index === 0 }"
     :key="item">
-   <div class="forseed">  
-   Za{{ index+1 }} dni <span class="temp">{{ item.temp.day }}°C</span> {{ item.weather[0].description }} Ciśnienie: {{item.pressure }} hpa
+   <div class="forseed">
+   Za{{ index+1 }} dni <span class="temp">{{ item.temp }}°C</span> {{ item.weather[0].description }} Ciśnienie: {{item.pressure }} hpa
+    
     </div>
 </div>
 </template>
@@ -23,7 +24,7 @@ const props = withDefaults(defineProps<Props>(),{
 import { Vue }           from "vue-class-component";
 
 
-export default class CityWeather extends Vue {}
+export default class CityWeatherHoutry extends Vue {}
 </script>
 
 <style scoped>

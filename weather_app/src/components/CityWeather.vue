@@ -4,7 +4,7 @@
     :class="{ active: index === 0 }"
     :key="item">
    <div class="forseed">  
-   Za{{ index+1 }} dni <span class="temp">{{ item.temp.day }}°C</span> {{ item.weather[0].description }} Ciśnienie: {{item.pressure }} hpa
+   Za {{ index+1 }} dni <span class="temp">{{ item.temp.day }}°C</span> {{ item.weather[0].description }} Ciśnienie: {{item.pressure }} hpa
     </div>
 </div>
 </template>

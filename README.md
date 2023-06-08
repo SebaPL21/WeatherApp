@@ -1,4 +1,4 @@
-# weather_app
+# Just wether app maked for lerning new stuff.
 
 ## Project setup
 ```

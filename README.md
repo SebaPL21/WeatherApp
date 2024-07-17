@@ -1,4 +1,4 @@
-# Just wether app maked for lerning new stuff.
+# Just a weather app I made for learning new stuff.
 
 ## Project setup
 ```
